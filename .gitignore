@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large files)
+data/raw/*.csv
+data/processed/*.csv
+
+# IDE
+.vscode/
+.idea/
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# dbt
+dbt/bank_churn/target/
+dbt/bank_churn/dbt_packages/
+dbt/bank_churn/logs/
+
+# Google Cloud
+*.json
+!dbt/bank_churn/profiles.yml
+
+# Power BI
+*.pbix
