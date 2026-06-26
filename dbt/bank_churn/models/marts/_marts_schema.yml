@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: >
+      Müşteri dimension tablosu. Tüm müşteri bilgileri,
+      segmentasyonlar ve risk skorları. Dashboard filtre ve
+      drill-down işlemleri için ana referans tablo.
+    columns:
+      - name: customer_id
+        description: "Benzersiz müşteri kimliği"
+        tests:
+          - unique
+          - not_null
+      - name: is_churned
+        description: "Churn durumu (1=terk etti, 0=kaldı)"
+        tests:
+          - not_null
+
+  - name: fct_churn_analysis
+    description: >
+      Churn analizi fact tablosu. Her müşterinin tüm özellikleri,
+      türetilmiş değişkenleri ve tahmini churn olasılığı.
+      Looker Studio ve Power BI ana veri kaynağı.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: estimated_churn_probability
+        description: "Kural tabanlı tahmini churn olasılığı (0-1)"
+        tests:
+          - not_null
+
+  - name: rpt_churn_by_geography
+    description: >
+      Ülke ve cinsiyet bazlı churn özet raporu.
+      Coğrafi dashboard sayfası için.
+    columns:
+      - name: country
+        tests:
+          - not_null
+      - name: churn_rate_pct
+        description: "Churn oranı yüzdesi"
+        tests:
+          - not_null
+
+  - name: rpt_churn_by_segment
+    description: >
+      Çoklu segment kırılımında churn analizi.
+      Risk, yaş, engagement, ürün ve bakiye segmentleri.
+    columns:
+      - name: segment_type
+        description: "Segment türü (Risk, Yaş, Engagement, Ürün, Bakiye)"
+        tests:
+          - not_null
+      - name: segment_value
+        description: "Segment değeri"
+        tests:
+          - not_null

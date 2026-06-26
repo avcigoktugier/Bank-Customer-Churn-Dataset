@@ -1,0 +1,32 @@
+# ─── dbt Profiles Yapılandırması ─────────────────────────
+# Bu dosyayı ~/.dbt/profiles.yml konumuna kopyala
+# ve kendi GCP bilgilerinle güncelle.
+#
+# Kullanım:
+#   1. Bu dosyayı ~/.dbt/profiles.yml olarak kopyala
+#   2. GCP_PROJECT_ID değerini kendi proje ID'nle değiştir
+#   3. keyfile yolunu service account JSON dosyanla güncelle
+#   4. dbt debug ile bağlantıyı test et
+# ─────────────────────────────────────────────────────────
+
+bank_churn:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account     # veya oauth
+      project: "YOUR_GCP_PROJECT_ID"   # ← GCP proje ID'ni yaz
+      dataset: bank_churn
+      location: US                # veya EU
+      threads: 4
+      timeout_seconds: 300
+      keyfile: "~/.dbt/service-account.json"  # ← service account key yolu
+
+    # OAuth ile bağlanmak istersen (gcloud auth):
+    # dev:
+    #   type: bigquery
+    #   method: oauth
+    #   project: "YOUR_GCP_PROJECT_ID"
+    #   dataset: bank_churn
+    #   location: US
+    #   threads: 4

@@ -1,0 +1,81 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ var('gcp_project', 'YOUR_GCP_PROJECT_ID') }}"
+    schema: bank_churn
+    description: "Kaggle Bank Customer Churn ham veri seti"
+    tables:
+      - name: raw_customers
+        description: "Ham müşteri verileri — Fivetran ile yüklenen orijinal CSV"
+        columns:
+          - name: customer_id
+            description: "Benzersiz müşteri kimliği"
+
+models:
+  - name: stg_bank_customers
+    description: >
+      Ham müşteri verisinin standardize edilmiş hali.
+      Sütun isimleri snake_case, veri tipleri cast edilmiş,
+      kategorik değerler standartlaştırılmış.
+    columns:
+      - name: customer_id
+        description: "Benzersiz müşteri kimliği"
+        tests:
+          - unique
+          - not_null
+
+      - name: credit_score
+        description: "Kredi skoru (350-850)"
+        tests:
+          - not_null
+
+      - name: age
+        description: "Müşteri yaşı"
+        tests:
+          - not_null
+
+      - name: country
+        description: "Müşterinin ülkesi"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['France', 'Germany', 'Spain']
+
+      - name: gender
+        description: "Müşteri cinsiyeti"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Male', 'Female']
+
+      - name: is_churned
+        description: "Müşteri bankayı terk etti mi (1=evet, 0=hayır)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: has_credit_card
+        description: "Kredi kartı var mı (1=evet, 0=hayır)"
+        tests:
+          - accepted_values:
+              values: [0, 1]
+
+      - name: is_active_member
+        description: "Aktif üye mi (1=evet, 0=hayır)"
+        tests:
+          - accepted_values:
+              values: [0, 1]
+
+      - name: tenure
+        description: "Bankadaki üyelik süresi (yıl)"
+
+      - name: balance
+        description: "Hesap bakiyesi"
+
+      - name: products_number
+        description: "Kullanılan banka ürün sayısı"
+
+      - name: estimated_salary
+        description: "Tahmini yıllık maaş"

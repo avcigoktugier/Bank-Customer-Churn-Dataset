@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: int_customer_features
+    description: >
+      Feature engineering yapılmış müşteri tablosu.
+      Yaş grubu, bakiye segmenti, kredi skoru kategorisi,
+      engagement skoru ve bileşik churn risk skoru içerir.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+      - name: churn_risk_score
+        description: "Bileşik churn risk skoru (0-5)"
+        tests:
+          - not_null
+
+      - name: engagement_score
+        description: "Müşteri etkileşim skoru (0-3)"
+        tests:
+          - not_null
+
+      - name: age_group
+        description: "Yaş segmenti"
+        tests:
+          - accepted_values:
+              values: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']
+
+      - name: churn_risk_segment
+        description: "Risk seviyesi etiketi"
+        tests:
+          - accepted_values:
+              values: ['Çok Düşük', 'Düşük', 'Orta', 'Yüksek', 'Kritik']
