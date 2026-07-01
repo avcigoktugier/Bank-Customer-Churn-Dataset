@@ -10,17 +10,17 @@
 # ─────────────────────────────────────────────────────────
 
 bank_churn:
-  target: dev
   outputs:
     dev:
       type: bigquery
-      method: service-account     # veya oauth
-      project: "YOUR_GCP_PROJECT_ID"   # ← GCP proje ID'ni yaz
-      dataset: bank_churn
-      location: US                # veya EU
+      method: service-account
+      project: bank-customer-churn-dataset 
+      dataset: bank_churn_dataset 
       threads: 4
-      timeout_seconds: 300
-      keyfile: "~/.dbt/service-account.json"  # ← service account key yolu
+      keyfile: C:\Users\avcig\Desktop\bank-churn-json\.dbtservice-account.json
+      location: EU 
+  target: dev
+
 
     # OAuth ile bağlanmak istersen (gcloud auth):
     # dev:

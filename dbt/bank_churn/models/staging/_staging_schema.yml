@@ -55,18 +55,21 @@ models:
           - not_null
           - accepted_values:
               values: [0, 1]
+              quote: false
 
       - name: has_credit_card
         description: "Kredi kartı var mı (1=evet, 0=hayır)"
         tests:
           - accepted_values:
               values: [0, 1]
+              quote: false
 
       - name: is_active_member
         description: "Aktif üye mi (1=evet, 0=hayır)"
         tests:
           - accepted_values:
               values: [0, 1]
+              quote: false
 
       - name: tenure
         description: "Bankadaki üyelik süresi (yıl)"

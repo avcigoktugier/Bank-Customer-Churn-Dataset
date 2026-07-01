@@ -109,7 +109,8 @@ with_segments as (
             when churn_risk_score = 1 then 'Düşük'
             when churn_risk_score = 2 then 'Orta'
             when churn_risk_score = 3 then 'Yüksek'
-            when churn_risk_score >= 4 then 'Kritik'
+            when churn_risk_score = 4 then 'Çok Yüksek'
+            when churn_risk_score >= 5 then 'Kritik'
         end as churn_risk_segment
 
     from featured

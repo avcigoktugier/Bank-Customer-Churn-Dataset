@@ -32,4 +32,4 @@ models:
         description: "Risk seviyesi etiketi"
         tests:
           - accepted_values:
-              values: ['Çok Düşük', 'Düşük', 'Orta', 'Yüksek', 'Kritik']
+              values: ['Çok Düşük', 'Düşük', 'Orta', 'Yüksek', 'Çok Yüksek', 'Kritik']
